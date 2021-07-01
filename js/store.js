@@ -2,13 +2,18 @@
 export const options = {
   strict: true,
   state: {
-    //todos:
+    //todo-serivce => gTodos
+    todos: [{
+      title: 'sdfsdfsdf', editor: 'jdflkksd'
+    }],
+    user: getUser(),
     count: 0
   },
   mutations: {
-    updateCount(state, { val }) {
-      state.count += val
+    addTodo({ newTodo }) {
+      // todoService.addTodo(newTodo)
     }
+
   }
 }
 
