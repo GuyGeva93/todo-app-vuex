@@ -1,0 +1,14 @@
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 5vh;
+  background-color: #932432;
+}
+
+footer p {
+  margin: 0 auto;
+  text-align: center;
+  font-family: cursive;
+  font-size: large;
+}
