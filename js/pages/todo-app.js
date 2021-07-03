@@ -1,48 +1,49 @@
 import todoList from "../cmps/todo-list.js"
+import todoFilter from "../cmps/todo-filter.js"
+import { todoService } from "../services/todo-service.js"
 
 
 export default {
   template: `
   <section class="todo-app">
-    <button @click="inc(1)">+</button>
-    <todo-list :todos="todosForDisplay"></todo-list>
-    <span>{{countForDisplay}}</span>
-    <input type="text" v-model="newTodo.title">
-    <!-- <span>{{todosForDisplay}}</span> -->
-    <button @click="inc(10)">+10</button>
+    <section class="todo-app-list">
+      <todo-filter @filter="setFilter"/>
+      <todo-list :todos="todos"></todo-list>
+    </section>
+    <section class="add-todo">
+      <h2>Add todo</h2>
+      <form @submit.prevent="addTodo(todo)">
+        <input placeholder="Title" type="text" v-model="todo.title">
+        <button>Add</button>
+      </form>
+    </section>
   </section>
-  
   `,
 
   data() {
     return {
-      newTodo: {
-        title: '',
-        severity: ''
-      }
+      todo: todoService.getEmptyTodo()
     }
   },
 
   methods: {
-    inc(val) {
-      this.$store.commit({ type: 'updateCount', val })
+    addTodo(todo) {
+      this.$store.commit({ type: 'saveTodo', todo })
     },
-    addTodo() {
-      this.$store.commit({ type: 'addtodo', newTodo: this.newTodo })
+    setFilter(filterBy) {
+      this.$store.commit({ type: 'setFilter', filterBy })
     }
   },
 
   computed: {
-    todosForDisplay() {
-      return this.$store.state.todos
+    todos() {
+      return this.$store.getters.todosForDisplay
     },
-    countForDisplay() {
-      return this.$store.state.count
-    }
   },
 
   components: {
     todoList,
+    todoFilter
   },
 
 }

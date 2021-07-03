@@ -2,7 +2,7 @@
 export default {
   template: `
    <footer class="app-footer">
-      <p>&copy; Guy Geva</p>
+      <span>&copy; Guy Geva</span>
    </footer>
   `,
 }
