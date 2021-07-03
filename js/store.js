@@ -1,19 +1,12 @@
 import { todoService } from "./services/todo-service.js"
+import { userService } from "./services/user-service.js"
 
 export const options = {
   strict: true,
   state: {
     todos: todoService.query(),
     filterBy: 'all',
-    user: {
-      fullname: '',
-      activities: [{
-        txt: '',
-        at: ''
-      }],
-
-    }
-    // user: getUser(),
+    user: userService.query(),
   },
 
   getters: {
@@ -27,6 +20,9 @@ export const options = {
         todosToShow = state.todos.filter(todo => todo.isDone)
       }
       return todosToShow
+    },
+    getUser(state) {
+      return JSON.parse(JSON.stringify(state.user))
     }
   },
 
@@ -39,12 +35,16 @@ export const options = {
       todoService.remove(todoId)
       state.todos = todoService.query()
     },
-    setFilter(state, { filterBy }) {
-      state.filterBy = filterBy
-    },
     toggleDone(state, { todoId }) {
       todoService.toggleDone(todoId)
       state.todos = todoService.query()
+    },
+    setFilter(state, { filterBy }) {
+      state.filterBy = filterBy
+    },
+    saveUser(state, { user }) {
+      userService.save(user)
+      state.user = userService.query()
     }
   }
 }

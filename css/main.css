@@ -3,6 +3,7 @@
 @import './cmps/todo-preview.css';
 @import './cmps/todo-list.css';
 @import './cmps/todo-edit.css';
+@import './pages/user-profile.css';
 @import './pages/todo-app.css';
 * {
   box-sizing: border-box;

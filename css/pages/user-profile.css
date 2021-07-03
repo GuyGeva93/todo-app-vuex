@@ -1,0 +1,10 @@
+.user-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-profile-prefs {
+  display: flex;
+  flex-direction: column;
+}

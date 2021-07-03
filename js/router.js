@@ -1,5 +1,6 @@
 import todoApp from "./pages/todo-app.js"
 import todoEdit from "./cmps/todo-edit.js"
+import userProfile from './pages/user-profile.js'
 
 
 const routes = [
@@ -10,6 +11,10 @@ const routes = [
   {
     path: '/edit/:todoId?',
     component: todoEdit
+  },
+  {
+    path: '/profile',
+    component: userProfile
   }
 
 
