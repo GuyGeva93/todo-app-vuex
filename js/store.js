@@ -31,13 +31,9 @@ export const options = {
     setTodos(state, { todos }) {
       state.todos = todos
     },
-    // saveTodo(state, { todo }) {
-    //   todoService.save(todo)
-    //   // state.todos = todoService.query()
-    // },
     removeTodo(state, { todoId }) {
-      todoService.remove(todoId)
-      state.todos = todoService.query()
+      const idx = state.todos.findIndex(todo => todo._id === todoId)
+      state.todos.splice(idx, 1)
     },
 
     setFilter(state, { filterBy }) {
@@ -67,19 +63,33 @@ export const options = {
           throw err
         })
     },
-    toggleDone({ commit }, payload) {
+    addTodo(context, { todo }) {
+      return todoService.save(todo)
+        .then(todo => {
+          context.commit({ type: 'addTodo', todo })
+          return todo
+        })
+        .catch(err => {
+          console.log('Cannot save todo:', todo, err)
+          throw err
+        })
+    },
+    removeTodo(context, { todoId }) {
+      return todoService.remove(todoId)
+        .then(() => {
+          context.commit({ type: 'removeTodo', todoId })
+        })
+        .catch(err => {
+          console.log('Cannot remove todo:', todoId, err)
+        })
+    },
+    toggleDone(context, payload) {
       todoService.toggleDone(payload.todoId)
         .then(() => {
-          commit(payload)
+          context.commit(payload)
         })
       // state.todos = todoService.query()
     },
-    addTodo({ commit }, { todo }) {
-      todoService.save(todo)
-        .then(todo => {
-          commit({ type: 'addTodo', todo })
-        })
-    }
   }
 }
 

@@ -2,7 +2,7 @@ import { todoService } from "../services/todo-service.js"
 
 export default {
   template: `
-  <form @submit.prevent="addTodo(todo)" class="todo-edit">
+  <form @submit.prevent="updateTodo(todo)" class="todo-edit">
     <input placeholder="Title" type="text" v-model="todo.title">
     <button>Edit</button>
   </form>
@@ -10,16 +10,17 @@ export default {
 
   data() {
     return {
-      todo: null
+      todo: ''
     }
   },
   created() {
-    this.todo = todoService.getById(this.$route.params);
+    todoService.getById(this.$route.params)
+      .then(todo => this.todo = todo)
   },
 
   methods: {
-    addTodo(todo) {
-      this.$store.commit({ type: 'saveTodo', todo })
+    updateTodo(todo) {
+      this.$store.dispatch({ type: 'addTodo', todo })
       this.$router.push('/')
     }
   },
