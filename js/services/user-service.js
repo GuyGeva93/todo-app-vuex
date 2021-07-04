@@ -1,4 +1,5 @@
 import { utilService } from "./util-service.js"
+import { storageService } from "./async-storage-service.js"
 
 const USER_KEY = 'user'
 const gUser = utilService.loadFromStorage(USER_KEY) || _createUser()
@@ -9,7 +10,8 @@ export const userService = {
 }
 
 function query() {
-  return gUser
+  storageService.query(USER_KEY)
+  // return gUser
 }
 
 function save(user) {
