@@ -15,7 +15,7 @@ export default {
       this.$store.commit({ type: 'removeTodo', todoId })
     },
     toggleDone(todoId) {
-      this.$store.commit({ type: 'toggleDone', todoId })
+      this.$store.dispatch({ type: 'toggleDone', todoId })
       this.todo.isDone = !this.todo.isDone
     }
   },

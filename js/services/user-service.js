@@ -15,7 +15,8 @@ function query() {
 }
 
 function save(user) {
-  utilService.saveToStorage(USER_KEY, user)
+  storageService.post(USER_KEY, user)
+  // utilService.saveToStorage(USER_KEY, user)
 }
 
 function _createUser() {

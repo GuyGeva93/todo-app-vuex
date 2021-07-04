@@ -8,7 +8,7 @@ export default {
   <section class="todo-app">
     <section class="todo-app-list">
       <todo-filter @filter="setFilter"/>
-      <todo-list :todos="todos"></todo-list>
+      <todo-list :todos="todos" />
     </section>
     <section class="add-todo">
       <h2>Add todo</h2>
@@ -28,11 +28,15 @@ export default {
 
   methods: {
     addTodo(todo) {
-      this.$store.commit({ type: 'saveTodo', todo })
+      this.$store.dispatch({ type: 'addTodo', todo })
     },
     setFilter(filterBy) {
       this.$store.commit({ type: 'setFilter', filterBy })
     }
+  },
+
+  created() {
+    this.$store.dispatch({ type: 'loadTodos' });
   },
 
   computed: {
